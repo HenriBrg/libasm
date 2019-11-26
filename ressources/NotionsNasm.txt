@@ -1,0 +1,20 @@
+1/ Ordre du placement des paramètres reçus et émis
+
+Dans le prototype : char	*ft_strcat(char *dest, const char *src)
+rdi = dest
+rsi = src
+rdx = 3eme
+rcx = 4eme
+r8  = 5eme
+r9  = 6eme
+Ensuite la stack prend le relai
+
+
+2/ Différences [] et BYTE[]
+
+Voir : https://www.unilim.fr/pages_perso/tristan.vaccon/cours_nasm.pdf
+
+
+3/ Table des syscalls
+
+https://w3challs.com/syscalls/?arch=x86_64
