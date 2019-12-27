@@ -5,8 +5,6 @@ section .text
     extern _ft_strlen
     extern _malloc
 
-; Pour cet exercice, on utilisera la stack afin de passer les paramètres
-
 _ft_strdup:
     ; --- (Prologue)
     push rbp
