@@ -1,0 +1,13 @@
+Ordre d'arrivée des arguments :
+
+	rdi = 1
+	rsi = 2
+	rdx = 3
+	rcx = 4
+	r8  = 5
+	r9  = 6
+	Ensuite la stack prend le relai
+
+Différences [] et BYTE[] --> https://www.unilim.fr/pages_perso/tristan.vaccon/cours_nasm.pdf
+
+Syscalls table --> https://w3challs.com/syscalls/?arch=x86_64
