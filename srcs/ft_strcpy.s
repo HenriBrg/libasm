@@ -16,6 +16,7 @@ _ft_strcpy:
 	cld
 	rep movsb
 	mov BYTE[rdi], 0x0
+	sub rdi, rdx		; Car pour rappel, movsb itère sur l'adresse (str++)
 	mov rax, rdi
 	ret
 

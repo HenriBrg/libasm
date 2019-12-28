@@ -8,30 +8,43 @@ section .text
 
 _ft_strcmp:
 	cmp rdi, 0
-	je undefinedBehavior
+	je badArgsExit
 	cmp rsi, 0
-	je undefinedBehavior
+	je badArgsExit
 	xor rax, rax
 	xor rbx, rbx
 	xor rcx, rcx
-	mov r8, rdi
-	mov r9, rsi
 	while:
-		mov al, BYTE[rdi + rcx]
-		mov bl, BYTE[rsi + rcx]
-		cmp al, 0x0
-		je exit
-		cmp bl, 0x0
-		je exit
-		add rcx, 1
-		cmp al, bl
-		je while
+		cmp BYTE[rdi + rcx], 0x0
+		je normalExit
+		cmp BYTE[rsi + rcx], 0x0
+		je supExit
+		mov al, [rdi + rcx]
+		cmp al, BYTE[rsi + rcx]
+		jg supExit
+		jb infExit
+		inc rcx
+		jmp while
 
-exit:
-	sub rax, rbx	; On soustrait en fait al et bl
-	mov rdi, r8
-	mov rsi, r9
+normalExit:
+	cmp BYTE[rsi + rcx], 0x0
+	je equalExit
+	jmp infExit
+
+badArgsExit:
+	cmp rdi, rsi
+	jg supExit
+	jl infExit
+	jmp equalExit
+
+supExit:
+	mov rax, 1
 	ret
 
-undefinedBehavior:
+infExit:
+	mov rax, -1
+	ret
+
+equalExit:
+	mov rax, 0
 	ret

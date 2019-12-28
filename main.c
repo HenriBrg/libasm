@@ -1,79 +1,150 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: henri <henri@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/28 00:36:14 by henri             #+#    #+#             */
-/*   Updated: 2019/12/28 00:37:39 by henri            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
 
-#include "./includes/libtfasm.h"
+#include "./includes/libasm.h"
 
-int	main(int ac, char **av)
+void 	strcpyTest()
 {
-	(void)ac;
-	(void)av;
+	char	d[50];
+	printf("\n	-----  FT_STRCPY  -----\n\n");
+	printf("1) <string> : %s\n", strcpy(d, ""));
+	printf("1) <libasm> : %s\n", ft_strcpy(d, ""));
+	printf("2) <string> : %s\n", strcpy(d, "Hello"));
+	printf("2) <libasm> : %s\n", ft_strcpy(d, "Hello"));
+	printf("3) <string> : %s\n", strcpy(d, "Assembly"));
+	printf("3) <libasm> : %s\n", ft_strcpy(d, "Assembly"));
+	printf("\n");
+}
 
-	printf("-------------------------- ft_strlen -------------------------------\n");
-	char	*strlenTestNull = NULL;
-	char	strlenTest[10] = "Assembly";
-	printf("1) \"Assembly\" : %zu\n", ft_strlen(strlenTest));
-	printf("2) \" \"        : %zu\n", ft_strlen(strlenTestNull));
+void 	strlenTest()
+{
+	printf("\n	-----  FT_STRLEN  -----\n\n");
+	printf("1) <string> : %zu\n", strlen(""));
+	printf("1) <libasm> : %zu\n", ft_strlen(""));
+	printf("2) <string> : %zu\n", strlen("Hello"));
+	printf("2) <libasm> : %zu\n", ft_strlen("Hello"));
+	printf("3) <string> : %zu\n", strlen("\t"));
+	printf("3) <libasm> : %zu\n", ft_strlen("\t"));
+	printf("\n");
+}
+
+void 	strcmpTest()
+{
+	printf("\n	-----  FT_STRCMP  -----\n\n");
+	printf("1) <string> : %d\n", strcmp("", ""));
+	printf("1) <libasm> : %d\n", ft_strcmp("", ""));
+	printf("2) <string> : %d\n", strcmp("Hello", "Hello"));
+	printf("2) <libasm> : %d\n", ft_strcmp("Hello", "Hello"));
+	printf("3) <string> : %d\n", strcmp("Assembly", ""));
+	printf("3) <libasm> : %d\n", ft_strcmp("Assembly", ""));
+	printf("4) <string> : %d\n", strcmp("", "Assembly"));
+	printf("4) <libasm> : %d\n", ft_strcmp("", "Assembly"));
+	printf("5) <string> : %d\n", strcmp("Nasm", "Assembly"));
+	printf("5) <libasm> : %d\n", ft_strcmp("Nasm", "Assembly"));
+	printf("\n");
+}
+
+void 	strdupTest()
+{
+	printf("\n	-----  FT_STRCMP  -----\n\n");
+	printf("1) <stdlib> : %s\n", strdup(""));
+	printf("1) <libasm> : %s\n", ft_strdup(""));
+	printf("2) <stdlib> : %s\n", strdup("Hello"));
+	printf("2) <libasm> : %s\n", ft_strdup("Hello"));
+	printf("3) <stdlib> : %s\n", strdup("Assembly"));
+	printf("3) <libasm> : %s\n", ft_strdup("Assembly"));
+	printf("\n");
+}
+
+void 	writeTest()
+{
+	int		fd;
+	char	b[50];
+
+	printf("\n	-----  FT_WRITE  -----\n\n");
+	printf("1) <unistd> : %zd\n", write(1, "", 0));
+	printf("1) <libasm> : %zd\n", write(1, "", 0));
+	printf("2) <unistd> : %zd\n", write(1, "Hello", 2));
+	printf("2) <libasm> : %zd\n", write(1, "Hello", 2));
+	printf("3) <unistd> : %zd\n", write(1, "Hello", 5));
+	printf("3) <libasm> : %zd\n", write(1, "Hello", 5));
+	printf("4) <unistd> : %zd\n", write(1, "Hello", 10));
+	printf("4) <libasm> : %zd\n", write(1, "Hello", 10));
+	printf("5) <unistd> : %zd\n", write(1, NULL, 10));
+	printf("5) <libasm> : %zd\n", write(1, NULL, 10));
+	printf("6) <unistd> : %zd\n", write(0, "Hello", 5));
+	printf("6) <libasm> : %zd\n", write(0, "Hello", 5));
+	printf("7) <unistd> : %zd\n", write(42, "Hello", 5));
+	printf("7) <libasm> : %zd\n", write(42, "Hello", 5));
+	printf("8) <unistd> : %zd\n", write(-42, "Hello", 5));
+	printf("8) <libasm> : %zd\n", write(-42, "Hello", 5));
+
+	printf("\n");
 
 
-	printf("-------------------------- ft_strcpy -------------------------------\n");
-	char	d[6];
-	char	s[6] = "Hello";
-	ft_strcpy(d, s);
-	printf("1) Src          : %s\n", s);
-	printf("1) Src into Dst	: %s\n", d);
+}
+void 	readTest()
+{
+	int		fd;
+	char	unistdBuffer[50];
+	char	libasmBuffer[50];
+	ssize_t	ret;
 
-	printf("-------------------------- ft_strdup -------------------------------\n");
-	char	*sdup;
-	char	*src = "Hello";
-	sdup = ft_strdup(src);
-	printf("1) Malloc : %s\n", sdup);
+	printf("\n	-----  FT_READ    -----\n\n");
 
-	printf("-------------------------- ft_strcmp -------------------------------\n");
-	char s1cmp[10] = "Hello";
-	char s2cmp[10] = "Hello";
-	char s3cmp[10] = "World";
-	printf("1) ft_strcmp return : %d\n", ft_strcmp(s1cmp, s2cmp));
-	printf("2) ft_strcmp return : %d\n", ft_strcmp(s1cmp, s3cmp));
-	printf("1) strcmp    return : %d\n", strcmp(s1cmp, s2cmp));
-	printf("2) strcmp    return : %d\n", strcmp(s1cmp, s3cmp));
-
-	printf("-------------------------- ft_write  -------------------------------\n");
-	int fd;
-	int retWrite;
-	char	strwrited[15] = "Assembly Nasm\n";
-
-	fd = open("readWriteFile", O_RDWR);
-	retWrite = ft_write(fd, "Assembly Nasm\n", 14);
-	printf("1) With ft_write(fd, \"Assembly Nasm\", 14)\n");
-	printf("1) Return value = %d\n", retWrite);
+	// Existing file
+	fd = open("Makefile", O_RDONLY);
+	ret = read(fd, unistdBuffer, 5);
+	close(fd);
+	printf("1) <unistd> : %zd\n", ret);
+	fd = open("Makefile", O_RDONLY);
+	ret = ft_read(fd, libasmBuffer, 5);
+	printf("1) <libasm> : %zd\n", ret);
 	close(fd);
 
-	printf("-------------------------- ft_read  --------------------------------\n");
-	int retRead;
-	char b[10];
-	fd = open("readWriteFile", O_RDONLY);
-	retRead = ft_read(fd, b, 10);
-	b[10] = '\0';
-	printf("1) With \"retRead = ft_read(fd, b, 10)\"\n");
-	printf("1) Read Return value = %d\n1) You read = %s\n", retRead, b);
+
+	// Non existing file
+	fd = open("I don't exist", O_RDONLY);
+	ret = read(fd, unistdBuffer, 5);
+	close(fd);
+	printf("2) <unistd> : %zd\n", ret);
+	fd = open("I don't exist", O_RDONLY);
+	ret = ft_read(fd, libasmBuffer, 5);
+	printf("2) <libasm> : %zd\n", ret);
 	close(fd);
 
-	int retBadRead;
-	char bad[10];
-	retBadRead = ft_read(-2, bad, 10);
-	bad[10] = '\0';
-	printf("\n2) With \"retBadRead = ft_read(-2, bad, 10)\"\n");
-	printf("2) Read Return value = %d\n2) You read = %s\n", retBadRead, bad);
+	// NULL Buffer on existing file
+	fd = open("Makefile", O_RDONLY);
+	ret = read(fd, NULL, 5);
+	close(fd);
+	printf("3) <unistd> : %zd\n", ret);
+	fd = open("Makefile", O_RDONLY);
+	ret = ft_read(fd, NULL, 5);
+	printf("3) <libasm> : %zd\n", ret);
 	close(fd);
 
-	return (0);
+	// Empty File
+	fd = open("emptyFile", O_RDONLY | O_CREAT | O_TRUNC, 0777);
+	ret = read(fd, unistdBuffer, 5);
+	printf("4) <unistd> : %zd\n", ret);
+	fd = open("emptyFile", O_RDONLY | O_CREAT | O_TRUNC, 0777);
+	ret = ft_read(fd, libasmBuffer, 5);
+	printf("4) <libasm> : %zd\n", ret);
+	close(fd);
+	remove("emptyFile");
+	
+	printf("\n");
+}
+
+int main()
+{
+	strcpyTest();
+	strlenTest();
+	strcmpTest();
+	strdupTest();
+	writeTest();
+	readTest();
+	return 0;
 }

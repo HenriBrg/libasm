@@ -2,7 +2,7 @@ section .text
 
     global _ft_strdup
     extern _ft_strlen
-	extern _ft_memcpy
+	extern _ft_strcpy
 	extern _malloc
 
 _ft_strdup:
@@ -20,6 +20,7 @@ _ft_strdup:
 	mov rdi, rax
     pop rcx
     pop rsi
+	; call _ft_strcpy
 	cld					; Set flag DF à 0 --> itération croissante sur rdi et rsi
 	rep movsb			; Copie rsi dans rdi N fois (avec N définit par rdx)
     mov rsp, rbp		; Essayer de comprendre pourquoi strcpy ne passait pas !
