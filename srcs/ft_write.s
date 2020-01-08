@@ -10,8 +10,6 @@ section .text
 _ft_write:
 	cmp rsi, BYTE 0x0
 	je exitBadArgs
-	push r8
-	push r9
 	mov r8, rsi
 	mov r9, rdx
 	mov rsi, 0x0		; Null pointer required by fstat()
@@ -23,12 +21,8 @@ _ft_write:
 	mov rdx, r9
 	mov rax, 0x2000004	; args : rdi = fd / rsi = string / rdx = size
 	syscall
-	pop r8
-	pop r9
 	ret
 
 exitBadArgs:
 	mov rax, -1
-	pop r8
-	pop r9
 	ret

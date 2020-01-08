@@ -48,7 +48,7 @@ void 	strcmpTest()
 
 void 	strdupTest()
 {
-	printf("\n	-----  FT_STRCMP  -----\n\n");
+	printf("\n	-----  FT_STRDUP  -----\n\n");
 	printf("1) <stdlib> : %s\n", strdup(""));
 	printf("1) <libasm> : %s\n", ft_strdup(""));
 	printf("2) <stdlib> : %s\n", strdup("Hello"));
@@ -134,7 +134,7 @@ void 	readTest()
 	printf("4) <libasm> : %zd\n", ret);
 	close(fd);
 	remove("emptyFile");
-	
+
 	printf("\n");
 }
 
